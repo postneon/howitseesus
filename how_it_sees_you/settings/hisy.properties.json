@@ -1,0 +1,130 @@
+{
+  "/setting_particles_offset_y": {
+    "min": -4800,
+    "max": 4800,
+    "value": -2472.727294921875
+  },
+  "/setting_particles_offset_x": {
+    "min": -3200,
+    "max": 3200,
+    "value": -1907.0706787109375
+  },
+  "/setting_particles_offset_z": {
+    "min": 1000,
+    "max": 6000,
+    "value": 2842.105224609375
+  },
+  "/setting_mesh_save_interval": {
+    "min": 1,
+    "max": 10,
+    "value": 9
+  },
+  "/setting_sides_width_left": {"value": 0},
+  "/setting_mesh_num_meshes": {
+    "min": 1,
+    "max": 10,
+    "value": 3
+  },
+  "/setting_min_fade_distance": {
+    "min": 100,
+    "max": 5000,
+    "value": 873.6842041015625
+  },
+  "/setting_sides_width_right": {"value": 0},
+  "/setting_mesh_smoothness": {
+    "min": 1,
+    "max": 20,
+    "value": 5.222222328186035
+  },
+  "/setting_max_fade_distance": {
+    "min": 100,
+    "max": 5000,
+    "value": 3452.631591796875
+  },
+  "/setting_min_z": {
+    "min": 100,
+    "max": 5000,
+    "value": 357.8947448730469
+  },
+  "/setting_particles_particle_bloom_fx": {"value": 0},
+  "/setting_particles_particle_color_a": {
+    "min": 1,
+    "max": 255,
+    "value": 1
+  },
+  "/setting_mesh_simplification": {
+    "min": 1,
+    "max": 10,
+    "value": 2
+  },
+  "/setting_particles_particle_color_b": {
+    "min": 1,
+    "max": 255,
+    "value": 1
+  },
+  "/setting_point_cloud_blur": {
+    "min": 0,
+    "max": 10,
+    "value": 6.6666669845581055
+  },
+  "/setting_particles_particle_color_g": {
+    "min": 1,
+    "max": 255,
+    "value": 1
+  },
+  "/setting_particles_scale": {
+    "min": 1,
+    "max": 15,
+    "value": 1
+  },
+  "/setting_particles_simplification": {
+    "min": 1,
+    "max": 10,
+    "value": 2
+  },
+  "/setting_particles_particle_size": {
+    "min": 1,
+    "max": 10,
+    "value": 1
+  },
+  "/setting_particles_particle_color_r": {
+    "min": 1,
+    "max": 255,
+    "value": 1
+  },
+  "/setting_max_z": {
+    "min": 100,
+    "max": 5000,
+    "value": 3194.73681640625
+  },
+  "/setting_point_cloud_offset_x": {
+    "min": -1600,
+    "max": 1600,
+    "value": 80.80810546875
+  },
+  "/setting_point_cloud_size": {
+    "min": 1,
+    "max": 20,
+    "value": 4
+  },
+  "/setting_point_cloud_offset_y": {
+    "min": -2400,
+    "max": 2400,
+    "value": 72.727294921875
+  },
+  "/label": {
+    "stringValue": "NO USER TRACKING",
+    "value": 0
+  },
+  "/setting_point_cloud_offset_z": {
+    "min": 0,
+    "max": 2500,
+    "value": 1414.141357421875
+  },
+  "/setting_particles_num_particles": {
+    "min": 100,
+    "max": 100000,
+    "value": 44500
+  },
+  "/setting_create_meshes": {"value": 1}
+}
