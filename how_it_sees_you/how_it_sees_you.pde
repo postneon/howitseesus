@@ -1,7 +1,7 @@
-/* HOW IT SEES YOU
+/* HOW IT SEES US
  *
- * @author: Martin Bartels <martin@apollomedia.nl> 
- *          Jim Brady <jim.brady@live.nl>
+ * @author: Post Neon <info@post-neon.com> 
+ *          Luca Claessens <luca@lookaluca.com>
  *
  * @version: 1.0
  **********************************************************************************************************/
@@ -60,6 +60,9 @@ int mesh_saved = 0;
 String mesh_export_path = "";
 UserMeshes mesh_user;
 
+// Scene switch
+int last_user_present = 0;
+
 // Settings
 // ---------------------------------------------------------------------------------------------------------
 ControlP5 cp5;
@@ -67,8 +70,9 @@ ControlP5 cp5;
 // Mesh settings
 int setting_mesh_simplification = 3;
 int setting_mesh_smoothness = 15;
-int setting_mesh_save_interval = 2;
-int setting_mesh_num_meshes = 6;
+int setting_mesh_save_interval = 1;
+int await_user_timer_interval = 3;
+int setting_mesh_num_meshes = 2;
 boolean setting_create_meshes = true;
 
 // Particle setings
@@ -116,9 +120,13 @@ int STATE_DRAW_POINTCLOUD = 0;
 int STATE_DRAW_MESH = 1;
 int STATE_MESH_DRAWN = 2;
 
+float USER_PRESENT_OPACITY_SIGNAL = 0.0;
+float AWAITING_USER_OPACITY_SIGNAL = 1.0;
+
 int state = 0;
 void setState(int s) { 
   state = s;
+  last_user_present = millis();
 }
 int getState() { 
   return state;
@@ -131,14 +139,16 @@ Ani fade_ani;
 float ani_fade = 0;
 int switch_state = 0;
 boolean is_switching_state = false;
+boolean sent_user_present = false;
+boolean sent_awaiting_user = false;
 
 
 // Setup
 // ---------------------------------------------------------------------------------------------------------
 void setup() {
 
-  //size(800, 1200, P3D);
-  fullScreen(P3D, 2);
+  size(800, 1200, P3D);
+  //fullScreen(P3D, 2);
 
   setupBlurShader();
   setupKinectMesh();
@@ -217,6 +227,8 @@ void fadeOut() {
 void setStateAfterFadeOut() {
 
   is_switching_state = false;
+  sent_user_present = false;
+  sent_awaiting_user = false;
 }
 
 //
@@ -224,7 +236,7 @@ void setStateAfterFadeOut() {
 void setupOSC() {
   
   oscP5 = new OscP5(this, 4444);
-  max_patch = new NetAddress("127.0.0.1", 3333);
+  max_patch = new NetAddress("127.0.0.1", 7000);
 }
 
 // Setup Blur Shader
@@ -499,25 +511,24 @@ void update() {
     kinect_point_cloud.update(points, colors);
 
   if (true == isState(STATE_DRAW_POINTCLOUD)) {
-    float[] boundingBox = { width, height };   
-    //grad.set("iResolution", boundingBox, 2);//pass some values to the shader
-    //grad.set("iTime", millis()*.001);
-    //beginShape();
-    //shader(grad);
-    //vertex(30, 20, -50);
-    //vertex(85, 20, -50);
-    //vertex(85, 75, -50);
-    //vertex(30, 75, -50);
-    //endShape();
-   //kinect_particles.update(points);
+    float[] boundingBox = { width, height }; 
   }
 
   if (true == userPresent()) {
-    
     if (false == is_switching_state && (true == setting_create_meshes && true == isState(STATE_DRAW_POINTCLOUD))) {
+      sent_awaiting_user = false;
+      last_user_present = millis();
+      if(false == sent_user_present){
+        sendUserPresent();
+      }
       exportMeshOnTimer();
     }
-  } 
+  } else {
+    if(false == is_switching_state && true == isState(STATE_DRAW_POINTCLOUD)){
+      sent_user_present = false;
+          sendAwaitUserOnTimer(); 
+    }
+  }
 
   if (kinect.context.isTrackingSkeleton(user_id)) {
     user_present_label.setText("USER TRACKING");
@@ -526,13 +537,31 @@ void update() {
   }
 }
 
+void sendUserPresent(){
+    sendOpacityOSCSignal(USER_PRESENT_OPACITY_SIGNAL);
+    sent_user_present = true;
+    println("sendUserPresent::sendSignal");
+}
+
+void sendAwaitingUser(){
+  sendOpacityOSCSignal(AWAITING_USER_OPACITY_SIGNAL);
+  sent_awaiting_user = true;
+}
+
+void sendOpacityOSCSignal(float signal){
+      OscMessage msg = new OscMessage("/layer2/video/opacity/values");
+    msg.add(signal);
+    oscP5.send(msg, max_patch);
+}
+
 // Export mesh on timer
 // ---------------------------------------------------------------------------------------------------------
 void exportMeshOnTimer() {
+ 
 
   if (userPresent() && false == is_switching_state) {
 
-    if (millis() - mesh_save_timer > setting_mesh_save_interval * 1000) {
+    if (millis() - mesh_save_timer > setting_mesh_save_interval * 200) {
 
       if (mesh_saved < setting_mesh_num_meshes) {
 
@@ -553,6 +582,15 @@ void exportMeshOnTimer() {
         kinect.context.stopTrackingSkeleton(user_id);
         switchState(STATE_DRAW_MESH);
       }
+    }
+  }
+}
+
+void sendAwaitUserOnTimer() {
+  if (false == userPresent() && false == is_switching_state && false == sent_awaiting_user) {
+    if (millis() - last_user_present > await_user_timer_interval * 1000) {
+        sendAwaitingUser();
+        println("sendAwaitUserOnTimer::sendSignal");
     }
   }
 }
@@ -770,7 +808,6 @@ void sendOSC() {
   sendParticlesCount();
   sendPointsCount();
 }
-
 //
 // -------------------------------------------------------------------------------------------------------
 void sendParticlesCount() {
@@ -833,7 +870,8 @@ void onVisibleUser(SimpleOpenNI curContext, int userId) {
 //
 // -------------------------------------------------------------------------------------------------------
 void checkUserPresence() {
-    boolean is_present = (kinect.points.size() > 10000);
+    println(kinect.points.size());
+    boolean is_present = (kinect.points.size() > 2000);
   
     if (is_present != user_present_close) {
       mesh_save_timer = millis();

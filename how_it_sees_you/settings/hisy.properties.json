@@ -39,12 +39,12 @@
   "/setting_max_fade_distance": {
     "min": 100,
     "max": 5000,
-    "value": 3452.631591796875
+    "value": 2163.157958984375
   },
   "/setting_min_z": {
     "min": 100,
     "max": 5000,
-    "value": 357.8947448730469
+    "value": 2163.157958984375
   },
   "/setting_particles_particle_bloom_fx": {"value": 0},
   "/setting_particles_particle_color_a": {
@@ -65,7 +65,7 @@
   "/setting_point_cloud_blur": {
     "min": 0,
     "max": 10,
-    "value": 6.6666669845581055
+    "value": 3.3333334922790527
   },
   "/setting_particles_particle_color_g": {
     "min": 1,
@@ -80,7 +80,7 @@
   "/setting_particles_simplification": {
     "min": 1,
     "max": 10,
-    "value": 2
+    "value": 3
   },
   "/setting_particles_particle_size": {
     "min": 1,
@@ -95,7 +95,7 @@
   "/setting_max_z": {
     "min": 100,
     "max": 5000,
-    "value": 3194.73681640625
+    "value": 1905.26318359375
   },
   "/setting_point_cloud_offset_x": {
     "min": -1600,
@@ -105,12 +105,12 @@
   "/setting_point_cloud_size": {
     "min": 1,
     "max": 20,
-    "value": 4
+    "value": 3
   },
   "/setting_point_cloud_offset_y": {
     "min": -2400,
     "max": 2400,
-    "value": 72.727294921875
+    "value": -121.212158203125
   },
   "/label": {
     "stringValue": "NO USER TRACKING",
@@ -119,7 +119,7 @@
   "/setting_point_cloud_offset_z": {
     "min": 0,
     "max": 2500,
-    "value": 1414.141357421875
+    "value": 934.3433837890625
   },
   "/setting_particles_num_particles": {
     "min": 100,

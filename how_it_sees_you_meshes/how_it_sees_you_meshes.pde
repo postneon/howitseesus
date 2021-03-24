@@ -1,7 +1,7 @@
-/* HOW IT SEES YOU
+/* HOW IT SEES US
  *
- * @author: Martin Bartels <martin@apollomedia.nl> 
- *          Jim Brady <jim.brady@live.nl>
+ * @author: Post Neon <info@post-neon.com> 
+ *          Luca Claessens <luca@lookaluca.com>
  *
  * @version: 1.0
  **********************************************************************************************************/
@@ -16,7 +16,7 @@ import java.util.*;
 import de.looksgood.ani.*;
 import de.looksgood.ani.easing.*;
 import controlP5.*;
-//import spout.*;
+import spout.*;
 
 UserMeshes meshes;
 Ani ani_x, ani_y, ani_z, ani_translate_y;
@@ -35,7 +35,7 @@ int next_heads = 0;
 boolean is_switching_state = false;
 Random random_generator;
 ControlP5 cp5;
-//Spout spout;
+Spout spout;
 
 int setting_sides_width_left = 0;
 int setting_sides_width_right = 0;
@@ -60,9 +60,9 @@ void setup() {
   meshes = new UserMeshes(this);
   getBodyMeshes();
   //frameRate(30);
-  //spout = new Spout(this);
+  spout = new Spout(this);
   
-  //spout.createSender("HISY Meshes");
+  spout.createSender("HISY Meshes");
 }
 
 // 
@@ -244,7 +244,7 @@ void draw() {
     }
   }
   info();
-  //spout.sendTexture();
+  spout.sendTexture();
 }
 
 // 
