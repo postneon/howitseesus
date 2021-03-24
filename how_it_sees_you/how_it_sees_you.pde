@@ -1,4 +1,4 @@
-/* HOW IT SEES YOU
+/* HOW IT SEES US
  *
  * @author: Post Neon <info@post-neon.com> 
  *          Luca Claessens <luca@lookaluca.com>
