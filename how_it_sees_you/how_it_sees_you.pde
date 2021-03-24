@@ -1,7 +1,7 @@
 /* HOW IT SEES YOU
  *
- * @author: Martin Bartels <martin@apollomedia.nl> 
- *          Jim Brady <jim.brady@live.nl>
+ * @author: Post Neon <info@post-neon.com> 
+ *          Luca Claessens <luca@lookaluca.com>
  *
  * @version: 1.0
  **********************************************************************************************************/
@@ -137,8 +137,8 @@ boolean is_switching_state = false;
 // ---------------------------------------------------------------------------------------------------------
 void setup() {
 
-  //size(800, 1200, P3D);
-  fullScreen(P3D, 2);
+  size(800, 1200, P3D);
+  //fullScreen(P3D, 2);
 
   setupBlurShader();
   setupKinectMesh();
